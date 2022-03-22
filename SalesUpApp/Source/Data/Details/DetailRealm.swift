@@ -1,5 +1,5 @@
 //
-//  Post.swift
+//  Detail.swift
 //  SalesUpApp
 //
 //  Created by ritech on 14.3.22.
@@ -8,13 +8,12 @@
 import Foundation
 import RealmSwift
 
-class RealmPost: Object {
+class DetailRealm: Object {
 
-   @objc dynamic var userId: Int = 0
-   @objc dynamic var id: Int = 0
-   @objc dynamic var title: String = ""
-   @objc dynamic var body: String = ""
-
+    @objc dynamic var id: Int = 0
+    @objc dynamic var authorName: String = ""
+    @objc dynamic var postDescription: String = ""
+    @objc dynamic var numberOfComments: Int = 0
 
     struct Keys {
       static let id = "id"
@@ -24,10 +23,9 @@ class RealmPost: Object {
         return Keys.id
     }
 }
- 
 
-extension RealmPost {
-    static var allPostsQuery: NSPredicate {
+extension DetailRealm {
+    static var detailPredicate: NSPredicate {
         return NSPredicate(format: "%K > 0", Keys.id)
     }
 }

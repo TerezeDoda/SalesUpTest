@@ -33,8 +33,4 @@ class UsersRemoteSource: UsersRemoteSourceProtocol {
        }
     }
 
-    func savePostAuthor(post: Post) {
-
-    }
-
  }

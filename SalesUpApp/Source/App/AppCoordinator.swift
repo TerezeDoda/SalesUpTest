@@ -12,13 +12,14 @@ class AppCoordinator: Coordinator {
     let window: UIWindow
     private var injector: Injector
     var rootViewController: UINavigationController
-
+    
     init(window: UIWindow) {
         self.window = window
         self.rootViewController = UINavigationController()
         self.rootViewController.navigationBar.prefersLargeTitles = true
 
         self.injector = Injector()
+
     }
 
     func start() {

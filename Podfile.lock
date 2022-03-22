@@ -1,6 +1,6 @@
 PODS:
   - Alamofire (5.5.0)
-  - ReachabilitySwift (5.0.0)
+  - Connectivity (5.0.0)
   - Realm (10.24.0):
     - Realm/Headers (= 10.24.0)
   - Realm/Headers (10.24.0)
@@ -9,22 +9,22 @@ PODS:
 
 DEPENDENCIES:
   - Alamofire
-  - ReachabilitySwift
+  - Connectivity
   - RealmSwift
 
 SPEC REPOS:
   trunk:
     - Alamofire
-    - ReachabilitySwift
+    - Connectivity
     - Realm
     - RealmSwift
 
 SPEC CHECKSUMS:
   Alamofire: 1c4fb5369c3fe93d2857c780d8bbe09f06f97e7c
-  ReachabilitySwift: 985039c6f7b23a1da463388634119492ff86c825
+  Connectivity: e990703fb8d8db54649ea05facac92000cc0f3eb
   Realm: 5d6f84e3f65d4efa204d46b461e5bbbbbbf84c6c
   RealmSwift: 9022754b93fad23e1ffc950c93574c5b7899bd51
 
-PODFILE CHECKSUM: 1576af4f075dfb2704a69ee0f650b47c9a995376
+PODFILE CHECKSUM: a39940491e1c2f7f27e415cfc63498d9015d3846
 
 COCOAPODS: 1.11.2

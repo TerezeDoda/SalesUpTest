@@ -6,10 +6,10 @@
 //
 
 import Foundation
-import Reachability
+import Connectivity
 
 protocol PostRepositoryProtocol {
-    func getPosts(completion: @escaping PostsNetworkCallback) // not ideal
+    func getPosts(completion: @escaping (Result<[Post], SalesUpError>) -> Void)
 }
 
 class PostRepository: PostRepositoryProtocol {
@@ -22,24 +22,27 @@ class PostRepository: PostRepositoryProtocol {
         self.remoteSource = remoteSource
     }
 
-    func getPosts(completion: @escaping PostsNetworkCallback) {
-
-       self.remoteSource.getPosts(completion: completion)
-
-      // TODO
-       let reachability = try! Reachability()
-        reachability.whenReachable = { reachability in
-           // call remote source
-           // update posts in local storage
+    func getPosts(completion: @escaping (Result<[Post], SalesUpError>) -> Void) {
+        if NetworkStatusMonitor.shared.currentStatus == .connected {
+            remoteSource.getPosts(){ res in
+                switch res {
+                case .success(let response):
+                    completion(.success(response))
+                    self.localSource.savePosts(response, completion: { _ in
+                        print("Posts updated successfully")
+                    })
+                case .failure(let error):
+                   print(error)
+                   completion(.failure(SalesUpError.general))
+                }
+            }
         }
-        reachability.whenUnreachable = { _ in
-           // get posts from local storage
-        }
-
-        do {
-            try reachability.startNotifier()
-        } catch {
-            print("Unable to start reachability notifier")
+        else {
+            print("Get local posts")
+            localSource.getPosts(){ res in
+                print(res)
+                completion(res)
+            }
         }
     }
 }

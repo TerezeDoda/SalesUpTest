@@ -15,7 +15,6 @@ enum ApiRouter: URLRequestConvertible {
     case comments
 
 
-    // MARK: - HTTPMethod
     private var method: HTTPMethod {
         switch self {
         case .posts, .users, .comments:
@@ -23,7 +22,6 @@ enum ApiRouter: URLRequestConvertible {
         }
     }
 
-    // MARK: - Path
     private var path: String {
         switch self {
         case .posts:
@@ -35,7 +33,6 @@ enum ApiRouter: URLRequestConvertible {
         }
     }
 
-    // MARK: - Parameters
     private var parameters: Parameters? {
         switch self {
          case .posts, .users, .comments:
@@ -43,10 +40,9 @@ enum ApiRouter: URLRequestConvertible {
         }
     }
 
-    // MARK: - URLRequestConvertible
     func asURLRequest() throws -> URLRequest {
 
-        let base = URL(string: SalesUpApp.Server.baseURL)!
+        let base = URL(string: K.Server.baseURL)!
         let baseAppend = base.appendingPathComponent(path).absoluteString.removingPercentEncoding
         let url = URL(string: baseAppend!)
 

@@ -15,6 +15,7 @@ class PostsCoordinator: NSObject, Coordinator {
     private let postRepository: PostRepositoryProtocol
     private let usersRepository: UsersRepositoryProtocol
     private let commentsRepository: CommentsRepositoryProtocol
+    private let networkStatusMonitor: NetworkStatusMonitorProtocol = NetworkStatusMonitor.shared
     private weak var postListViewModel: PostListViewModel?
     private weak var postDetailsViewModel: PostDetailViewModel?
 
@@ -26,6 +27,8 @@ class PostsCoordinator: NSObject, Coordinator {
         self.postRepository = injector.postRepository
         self.usersRepository = injector.usersRepository
         self.commentsRepository = injector.commentsRepository
+
+        networkStatusMonitor.startMonitoring()
     }
 
     func start() {

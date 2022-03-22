@@ -9,7 +9,6 @@ import Foundation
 
 protocol UsersRepositoryProtocol {
     func getUsers(completion: @escaping UsersNetworkCallback)
-    func savePostAuthor(user: User, post: Post)
 }
 
 class UsersRepository: UsersRepositoryProtocol {
@@ -25,9 +24,4 @@ class UsersRepository: UsersRepositoryProtocol {
     func getUsers(completion: @escaping UsersNetworkCallback) {
          remoteSource.getUsers(completion: completion)
     }
-
-   func savePostAuthor(user: User, post: Post){
-        // TODO
-    }
-
 }

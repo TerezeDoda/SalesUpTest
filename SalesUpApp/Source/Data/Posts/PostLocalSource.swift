@@ -11,7 +11,6 @@ protocol PostsLocalSourceProtocol {
     func getPosts(completion: @escaping (Result<[Post], SalesUpError>) -> Void)
     func savePosts(_ posts: [Post], completion: @escaping (Result<[Post], SalesUpError>) -> Void)
     func deleteAllPosts(completion: @escaping (Result<Void, SalesUpError>) -> Void)
-
 }
 
 class PostsLocalSource: PostsLocalSourceProtocol {
@@ -51,7 +50,6 @@ class PostsLocalSource: PostsLocalSourceProtocol {
                 completion(.failure(error))
                 return
             }
-            self.getPosts(completion: completion)
         }
     }
 
@@ -59,10 +57,7 @@ class PostsLocalSource: PostsLocalSourceProtocol {
         database.deleteAllObjects(ofType: RealmPost.self) { error in
             if let error = error {
                 completion(.failure(error))
-            } else {
-               // completion(.success())
             }
         }
     }
-
 }

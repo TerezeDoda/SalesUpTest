@@ -9,7 +9,8 @@ import Foundation
 
 protocol CommentsRepositoryProtocol {
     func getComments(completion: @escaping CommentsNetworkCallback)
-    func savePostComment(post: Post, user: User)
+    func saveDetail(detail: Detail)
+    func getDetail(completion: @escaping (Result<Detail, SalesUpError>) -> Void)
 }
 
 class CommentsRepository: CommentsRepositoryProtocol {
@@ -23,11 +24,19 @@ class CommentsRepository: CommentsRepositoryProtocol {
     }
 
     func getComments(completion: @escaping CommentsNetworkCallback) {
-         remoteSource.getComments(completion: completion)
+        remoteSource.getComments(completion: completion)
     }
 
-    func savePostComment(post: Post, user: User){
-        // TODO
-     }
+    func saveDetail(detail: Detail) {
+        localSource.saveDetails(detail, completion: { res in
+            print(res)
+        })
+    }
+
+    func getDetail(completion: @escaping (Result<Detail, SalesUpError>) -> Void) {
+        localSource.getDetails(completion: { result in
+           completion(result)
+        })
+    }
 
 }

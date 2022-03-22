@@ -2,7 +2,7 @@
 # platform :ios, '9.0'
 pod 'Alamofire'
 pod 'RealmSwift'
-pod 'ReachabilitySwift'
+pod 'Connectivity'
 
 target 'SalesUpApp' do
   # Comment the next line if you don't want to use dynamic frameworks

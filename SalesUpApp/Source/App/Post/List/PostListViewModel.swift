@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import Connectivity
 
 protocol PostListViewModelProtocol {
     func setUpView(view: PostListViewProtocol)
@@ -30,6 +31,12 @@ class PostListViewModel: PostListViewModelProtocol {
 
     init(repository: PostRepositoryProtocol){
         self.repository = repository
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(networkStatusDidChange(_:)),
+            name: K.Notifications.networkStatusChanged,
+            object: nil
+        )
     }
 
     func setUpView(view: PostListViewProtocol){
@@ -39,15 +46,15 @@ class PostListViewModel: PostListViewModelProtocol {
     func getPosts() {
         postView?.showLoader()
         repository.getPosts() { [weak self] result in
-           guard let self = self else { return }
+            guard let self = self else { return }
 
-           self.postView?.hideLoader()
+            self.postView?.hideLoader()
 
             switch result {
             case .success(let response):
-              response.count == 0
-              ? self.postView?.loadNoData()
-              : self.postView?.loadPosts(posts: response)
+                response.count == 0
+                ? self.postView?.loadNoData()
+                : self.postView?.loadPosts(posts: response)
             case .failure(let error):
                 print(error)
                 self.postView?.showError(error: "Something went wrong")
@@ -56,7 +63,10 @@ class PostListViewModel: PostListViewModelProtocol {
     }
 
     func didSelectPost(_ post: Post){
-      onCoordinatorCallback?(post)
+        onCoordinatorCallback?(post)
     }
 
+    @objc private func networkStatusDidChange(_ notification: Notification) {
+        getPosts()
+    }
 }
